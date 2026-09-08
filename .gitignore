@@ -1,0 +1,18 @@
+# ---- 密钥（绝不进 git！）----
+.env
+keys/
+plugins/
+
+# ---- 运行产物 ----
+logs/
+__pycache__/
+*.pyc
+
+# ---- 个人数据/隐私（代码公开，数据不公开）----
+resume*.md
+applications.json
+jobs.csv
+jobs_out.json
+
+# ---- 虚拟环境 ----
+.venv/
