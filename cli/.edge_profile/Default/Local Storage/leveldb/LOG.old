@@ -1,0 +1,6 @@
+2026/08/24-00:59:11.368 cf8c Reusing MANIFEST D:\job_hunter\cli\.edge_profile\Default\Local Storage\leveldb/MANIFEST-000001
+2026/08/24-00:59:11.380 cf8c Recovering log #12
+2026/08/24-00:59:11.384 cf8c Reusing old log D:\job_hunter\cli\.edge_profile\Default\Local Storage\leveldb/000012.log 
+2026/08/24-01:00:06.685 cf8c Level-0 table #17: started
+2026/08/24-01:00:06.697 cf8c Level-0 table #17: 93418 bytes OK
+2026/08/24-01:00:06.699 cf8c Delete type=0 #12

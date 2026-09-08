@@ -1,0 +1,5 @@
+2026/08/24-01:10:29.129 d770 Reusing MANIFEST D:\job_hunter\cli\.edge_profile\Default\IndexedDB\https_docs.qq.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/24-01:10:29.130 d770 Recovering log #15
+2026/08/24-01:10:29.160 d770 Reusing old log D:\job_hunter\cli\.edge_profile\Default\IndexedDB\https_docs.qq.com_0.indexeddb.leveldb/000015.log 
+2026/08/24-01:10:29.161 d770 Delete type=2 #13
+2026/08/24-01:10:29.161 d770 Delete type=2 #16

@@ -1,0 +1,45 @@
+2026-08-23 16:33:58.574: [INFO] CurrentProfilePath: D:\job_hunter\cli\.edge_profile\Default
+2026-08-23 16:33:58.574: [INFO] Profiles total count: 1
+2026-08-23 16:33:58.574: [INFO] Profile: name=用户配置 1 path=D:\job_hunter\cli\.edge_profile\Default lastActive=null
+2026-08-23 16:33:58.574: [INFO] LastUsedProfileDir: D:\job_hunter\cli\.edge_profile\Default
+2026-08-23 16:33:58.574: [INFO] VisibilityChanged: 0
+2026-08-23 16:33:58.703: [INFO] BookmarkNodeAdded, ABU: 0
+2026-08-23 16:33:58.704: [INFO] BookmarkNodeAdded, ABU: 0
+2026-08-23 16:33:58.704: [INFO] OnDoneLoading sync enabled: 0
+2026-08-23 16:33:58.704: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-23 16:33:58.704: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-23 16:33:58.704: [INFO] BookmarksSnapshot Startup total=2 bar=2 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-23 16:34:53.970: [INFO] BookmarksSnapshot Shutdown total=2 bar=2 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-23 16:39:13.733: [INFO] CurrentProfilePath: D:\job_hunter\cli\.edge_profile\Default
+2026-08-23 16:39:13.733: [INFO] Profiles total count: 1
+2026-08-23 16:39:13.734: [INFO] Profile: name=个人 path=D:\job_hunter\cli\.edge_profile\Default lastActive=2026-08-23T16:35:11.226Z
+2026-08-23 16:39:13.734: [INFO] LastUsedProfileDir: D:\job_hunter\cli\.edge_profile\Default
+2026-08-23 16:39:13.734: [INFO] MostRecentlyActiveProfile: name=个人 path=D:\job_hunter\cli\.edge_profile\Default lastActive=2026-08-23T16:35:11.226Z
+2026-08-23 16:39:13.734: [INFO] VisibilityChanged: 0
+2026-08-23 16:39:13.956: [INFO] OnDoneLoading sync enabled: 0
+2026-08-23 16:39:13.956: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-23 16:39:13.956: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-23 16:39:13.956: [INFO] BookmarksSnapshot Startup total=2 bar=2 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-23 16:42:23.470: [INFO] BookmarksSnapshot Shutdown total=2 bar=2 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-23 16:51:27.245: [INFO] CurrentProfilePath: D:\job_hunter\cli\.edge_profile\Default
+2026-08-23 16:51:27.245: [INFO] Profiles total count: 1
+2026-08-23 16:51:27.245: [INFO] Profile: name=个人 path=D:\job_hunter\cli\.edge_profile\Default lastActive=2026-08-23T16:48:02.282Z
+2026-08-23 16:51:27.245: [INFO] LastUsedProfileDir: D:\job_hunter\cli\.edge_profile\Default
+2026-08-23 16:51:27.245: [INFO] MostRecentlyActiveProfile: name=个人 path=D:\job_hunter\cli\.edge_profile\Default lastActive=2026-08-23T16:48:02.282Z
+2026-08-23 16:51:27.245: [INFO] VisibilityChanged: 0
+2026-08-23 16:51:27.432: [INFO] OnDoneLoading sync enabled: 0
+2026-08-23 16:51:27.432: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-23 16:51:27.432: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-23 16:51:27.432: [INFO] BookmarksSnapshot Startup total=2 bar=2 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-23 16:52:56.519: [INFO] BookmarksSnapshot Shutdown total=2 bar=2 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-23 17:10:26.796: [INFO] CurrentProfilePath: D:\job_hunter\cli\.edge_profile\Default
+2026-08-23 17:10:26.796: [INFO] Profiles total count: 1
+2026-08-23 17:10:26.797: [INFO] Profile: name=个人 path=D:\job_hunter\cli\.edge_profile\Default lastActive=2026-08-23T16:59:30.380Z
+2026-08-23 17:10:26.797: [INFO] LastUsedProfileDir: D:\job_hunter\cli\.edge_profile\Default
+2026-08-23 17:10:26.797: [INFO] MostRecentlyActiveProfile: name=个人 path=D:\job_hunter\cli\.edge_profile\Default lastActive=2026-08-23T16:59:30.380Z
+2026-08-23 17:10:26.797: [INFO] VisibilityChanged: 0
+2026-08-23 17:10:26.916: [INFO] OnDoneLoading sync enabled: 0
+2026-08-23 17:10:26.916: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-08-23 17:10:26.916: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-08-23 17:10:26.916: [INFO] BookmarksSnapshot Startup total=2 bar=2 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-08-23 17:11:29.890: [INFO] BookmarksSnapshot Shutdown total=2 bar=2 other=0 mobile=0 showBar=0 showBarNTP=1

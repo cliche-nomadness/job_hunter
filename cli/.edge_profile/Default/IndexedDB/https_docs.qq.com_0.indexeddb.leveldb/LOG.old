@@ -1,0 +1,10 @@
+2026/08/24-00:59:13.647 c504 Reusing MANIFEST D:\job_hunter\cli\.edge_profile\Default\IndexedDB\https_docs.qq.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/08/24-00:59:13.649 c504 Recovering log #11
+2026/08/24-00:59:13.764 c504 Reusing old log D:\job_hunter\cli\.edge_profile\Default\IndexedDB\https_docs.qq.com_0.indexeddb.leveldb/000011.log 
+2026/08/24-00:59:24.516 5b00 Level-0 table #16: started
+2026/08/24-00:59:24.572 5b00 Level-0 table #16: 1025228 bytes OK
+2026/08/24-00:59:24.574 5b00 Delete type=0 #11
+2026/08/24-00:59:26.602 5b00 Compacting 1@1 + 1@2 files
+2026/08/24-00:59:26.696 5b00 Generated table #17@1: 27213 keys, 1364651 bytes
+2026/08/24-00:59:26.697 5b00 Compacted 1@1 + 1@2 files => 1364651 bytes
+2026/08/24-00:59:26.698 5b00 compacted to: files[ 0 0 1 0 0 0 0 ]
