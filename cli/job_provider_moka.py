@@ -14,24 +14,50 @@ import time
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 
-LINK_RE = re.compile(r"#/job/|/job/|jobAdId=")
+LINK_RE = re.compile(r"#/job/|/job/|jobAdId=|/position/\d|positionId=|jobPostId=")
 TAG_LINES = {"急", "热", "new", "NEW", "|"}
 JD_START = re.compile(r"职位描述|岗位职责|工作职责|岗位要求|任职要求")
 JD_END = re.compile(r"联系方式|简历投递|申请职位|立即投递|分享职位")
 
 
-def _open(page, url, wait=8000, retries=3):
+def _open(page, url, wait=8000, retries=3, timeout=100000):
     """打开页面并等待渲染。网络抖动时自动重试（国内站偶发超时很常见）。"""
     for attempt in range(1, retries + 1):
         try:
-            page.goto(url, timeout=100000, wait_until="load")
+            page.goto(url, timeout=timeout, wait_until="load")
             break
         except Exception as e:
             if attempt == retries:
                 raise
             print(f"  ⚠️ 第 {attempt} 次连接失败（{e}），3 秒后重试...")
             time.sleep(3)
-    page.wait_for_timeout(wait)
+    if wait:
+        page.wait_for_timeout(wait)
+
+
+def _wait_jobs(page, max_wait=10000, need=3):
+    """智能等待：轮询岗位链接数量，数量稳定且够数才放行。
+
+    SPA 是渐进渲染——只判"凑够 3 个"会放行太早（远景 36 行只抓到 8 行的教训）；
+    判"连续两次轮询数量不再增长"才能抓全。上限 max_wait 毫秒兜底。
+    """
+    waited, prev, stable = 0, -1, 0
+    while waited < max_wait:
+        try:
+            hrefs = page.eval_on_selector_all(
+                "a", "els => els.map(e => e.getAttribute('href') || '')")
+        except Exception:
+            return
+        count = sum(1 for h in hrefs if LINK_RE.search(h or ""))
+        if count >= need and count == prev:
+            stable += 1
+            if stable >= 2:          # 连续 2 次（约 1 秒）数量没涨 → 渲染完成
+                return
+        else:
+            stable = 0
+        prev = count
+        page.wait_for_timeout(500)
+        waited += 500
 
 
 def _split_job_text(text):
@@ -59,16 +85,31 @@ def extract_jd(full_text):
     return "\n".join(jd)
 
 
-def scrape_job_list(url):
-    """打开岗位列表页，返回 [{title, meta, detail, base}]。"""
-    base = url.split("#")[0]
-    jobs = []
-    with sync_playwright() as p:
-        browser = p.chromium.launch(channel="msedge", headless=True)
-        page = browser.new_page()
-        _open(page, url)
+def scrape_job_list(url, browser=None):
+    """打开岗位列表页，返回 [{title, meta, detail, base}]。
 
+    browser 传 None：自建浏览器用完即关（CLI 单站用法，行为同旧版）。
+    browser 传已有实例：只开一个新标签页——批量抓取时全程复用一个浏览器，
+    省掉每站 2~5 秒的冷启动（sync_jobs 每日同步的关键提速点）。
+    """
+    base = url.split("#")[0]
+    if browser is not None:
+        return _scrape_list_on(browser, url, base)
+    with sync_playwright() as p:
+        b = p.chromium.launch(channel="msedge", headless=True)
+        try:
+            return _scrape_list_on(b, url, base)
+        finally:
+            b.close()
+
+
+def _scrape_list_on(browser, url, base):
+    page = browser.new_page()
+    try:
+        _open(page, url, wait=0, retries=1, timeout=30000)  # 列表页：失败就降级，不值得等 5 分钟
+        _wait_jobs(page, max_wait=8000)
         seen = set()
+        jobs = []
         for a in page.locator("a").all():
             try:
                 href = a.get_attribute("href") or ""
@@ -79,23 +120,34 @@ def scrape_job_list(url):
             seen.add(href)
             title, meta = _split_job_text((a.inner_text() or "").strip())
             jobs.append({"title": title, "meta": meta, "detail": href, "base": base})
-        browser.close()
-    return jobs
+        return jobs
+    finally:
+        page.close()
 
 
-def scrape_job_detail(base, detail):
-    """进入岗位详情页，返回切分后的 JD 区段。"""
+def scrape_job_detail(base, detail, browser=None):
+    """进入岗位详情页，返回切分后的 JD 区段（browser 语义同 scrape_job_list）。"""
     if detail.startswith("http"):
         job_url = detail
     else:
         job_url = base + detail if detail.startswith("#") else base.rstrip("/") + detail
+    if browser is not None:
+        return _detail_on(browser, job_url)
     with sync_playwright() as p:
-        browser = p.chromium.launch(channel="msedge", headless=True)
-        page = browser.new_page()
-        _open(page, job_url)
-        full = page.inner_text("body")
-        browser.close()
-    return extract_jd(full)
+        b = p.chromium.launch(channel="msedge", headless=True)
+        try:
+            return _detail_on(b, job_url)
+        finally:
+            b.close()
+
+
+def _detail_on(browser, job_url):
+    page = browser.new_page()
+    try:
+        _open(page, job_url, wait=8000, retries=1, timeout=30000)
+        return extract_jd(page.inner_text("body"))
+    finally:
+        page.close()
 
 
 def main():

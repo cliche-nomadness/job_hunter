@@ -1,4 +1,0 @@
-# 站点清单：每行「公司名,岗位列表URL」；# 开头是注释
-# 加新站点就在下面加一行（先验证该站能被 job_provider_moka 抓到再放进来）
-
-九号（博恩纳）,https://app.mokahr.com/recommendation-apply/ninebot/45628?sharePageId=4706506&recommendCode=NTApVGu&codeType=1#/jobs?isCampusJob=1&zhineng%5B0%5D=204240

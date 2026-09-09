@@ -64,8 +64,8 @@ run_bot.cmd              # Windows 一键启动（密钥从 .env 读）
 **前置**：Python 3.10+、一个飞书自建应用（事件订阅选"长连接"模式）、DeepSeek API Key。
 
 ```bat
-git clone https://github.com/<你的用户名>/xiaozhaoxia.git
-cd xiaozhaoxia
+git clone https://github.com/cliche-nomadness/job_hunter.git
+cd job_hunter
 python -m venv .venv
 .venv\Scripts\python.exe -m pip install -r requirements.txt
 ```

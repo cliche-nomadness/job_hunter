@@ -25,6 +25,7 @@ _token_cache = {"token": "", "expire_at": 0}
 _processed_messages = {}   # {消息ID: 处理时间戳} —— 用 message_id 去重（官方推荐，event_id 可能被重新生成）
 
 def handle_command(open_id, text):
+    load_jobs()   # 每条命令重读 jobs.csv——sync_jobs 定时写完，bot 不重启也能看到新数据
     parts = text.split()
     if not parts:
         return
@@ -133,7 +134,7 @@ def send_text(open_id, text):
         "https://open.feishu.cn/open-apis/im/v1/messages?receive_id_type=open_id",
         headers={"Authorization": f"Bearer {token}"},
         json={"receive_id": open_id, "msg_type": "text",
-              "content": json.dumps({"text": text})},   # content 是"字符串里的 JSON"！
+              "content": json.dumps({"text": text}, ensure_ascii=False)},  # 不转义中文——\uXXXX 会把体积撑大 3 倍多
         timeout=10)
     print("发送结果:", resp.status_code, resp.text)
 
@@ -228,18 +229,23 @@ def load_jobs():
 jobs = []
 load_jobs()   # 启动时加载一次
 
+JOB_LIST_LIMIT = 20         # "岗位"命令最多列 20 条——防止超飞书消息长度 + 保证可读
+
 def cmd_jobs(open_id, parts):
     if len(jobs) == 0:
         send_text(open_id, "没有岗位数据，请先准备 jobs.csv"); return
     city = parts[1] if len(parts) > 1 else ""
     keyword = parts[2] if len(parts) > 2 else ""
     result = [j for j in jobs
-              if (not city or j["城市"] == city)
+              if (not city or city in j["城市"])
               and (not keyword or keyword in j["岗位"])]
     if len(result) == 0:
         send_text(open_id, "没有符合条件的岗位"); return
-    lines = [f"{i+1}. [{j['城市']}] {j['公司']} - {j['岗位']}" for i, j in enumerate(result)]
-    send_text(open_id, "匹配岗位：\n" + "\n".join(lines))
+    shown = result[:JOB_LIST_LIMIT]
+    lines = [f"{i+1}. [{j['城市']}] {j['公司']} - {j['岗位']}" for i, j in enumerate(shown)]
+    head = "匹配岗位：" if len(result) <= JOB_LIST_LIMIT else \
+        f"匹配岗位 {len(result)} 个（显示前 {JOB_LIST_LIMIT}，发「岗位 {city} 更具体关键词」缩小范围）："
+    send_text(open_id, head + "\n" + "\n".join(lines))
 
 # ---- 简历优化确认状态（防"幽灵确认" + 超时清理）----
 _pending_optimize = {}      # {open_id: 发起时间戳} —— 谁在等确认

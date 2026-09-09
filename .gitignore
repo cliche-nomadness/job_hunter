@@ -12,7 +12,11 @@ __pycache__/
 resume*.md
 applications.json
 jobs.csv
+jobs.csv.bak
 jobs_out.json
+# 清单是 build_sites.py 的生成产物，且内含个人内推码——不入库，README 教如何重新生成
+cli/sites.txt
+cli/pending.txt
 
 # ---- 虚拟环境 ----
 .venv/
